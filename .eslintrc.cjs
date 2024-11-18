@@ -1,18 +1,16 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
+  // Other configuration rules...
+  parserOptions: {
+    ecmaVersion: 'latest', // Enables latest ECMAScript features
+    sourceType: 'module',  // Allows use of ES Modules
+    project: ['./tsconfig.json', './tsconfig.node.json'], // TypeScript project files
+    tsconfigRootDir: __dirname, // Ensures paths are relative to config location
+  },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended', // TypeScript rules
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    // Add any custom rules here
   },
 };
