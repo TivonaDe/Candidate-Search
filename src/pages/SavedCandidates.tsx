@@ -10,6 +10,9 @@ const SavedCandidates = () => {
       setSavedCandidates(JSON.parse(saved));
     }
   }, []);
+  if (savedCandidates.length === 0) {
+    return <p>No saved candidates yet!</p>;
+  }
 
   return savedCandidates.length > 0 ? (
     <div>
@@ -19,6 +22,12 @@ const SavedCandidates = () => {
           <img src={candidate.avatar_url} alt={candidate.name} />
           <h2>{candidate.name}</h2>
           <p>{candidate.username}</p>
+          <p>Location: {candidate.location}</p>
+          <p>Email: {candidate.email || 'Not available'}</p>
+          <p>Company: {candidate.company || 'Not available'}</p>
+          <a href={candidate.html_url} target="_blank" rel="noopener noreferrer">
+                GitHub Profile
+              </a>
         </div>
       ))}
     </div>
