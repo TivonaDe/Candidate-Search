@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getFromCache } from './utils/cacheLocalStorage';
-import { useCache } from './utils/CacheContext';
+
 
 const SavedCandidates = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,17 +12,16 @@ const SavedCandidates = () => {
       setCandidates(JSON.parse(saved));
     }
   }, []);
-  const { cache, setCache } = useCache();
-
-  const savedCandidates = cache.savedCandidates || [];
-  const handleRemoveCandidate = (index: number) => {
-    const updatedCandidates = savedCandidates.filter((_: any, i: number) => i !== index);
-    setCache('savedCandidates', updatedCandidates);
+   const handleRemoveCandidate = (username: string) => {
+    const updatedCandidates = candidates.filter(candidate => candidate.username !== username);
+    setCandidates(updatedCandidates); // Update React state
+    localStorage.setItem('savedCandidates', JSON.stringify(updatedCandidates)); // Update localStorage
   };
 
   if (candidates.length === 0) {
     return <p>No saved candidates yet!</p>;
   }
+  
   const nextCandidate = () => {
     if (currentIndex < candidates.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -67,7 +66,7 @@ const SavedCandidates = () => {
             >
               Next
             </button>
-            <button onClick={() => handleRemoveCandidate(currentIndex)}>
+            <button onClick={() => handleRemoveCandidate(candidates[currentIndex].username)}>
               Remove Candidate
             </button>
           </div>

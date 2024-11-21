@@ -49,7 +49,7 @@ export const getFromCache = <T>(key: CacheKey): T | null => {
  * Remove data from the cache and localStorage.
  * @param key - The key to remove.
  */
-export const removeFromCache = (key: CacheKey): void => {
+export const rejectButton = (key: CacheKey): void => {
   try {
     localStorage.removeItem(key);
     delete cache[key]; // Remove from in-memory cache

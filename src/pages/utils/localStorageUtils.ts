@@ -50,7 +50,7 @@ export const getFromLocalStorage = <T>(key: StorageKey): T | null => {
  * Remove data from localStorage.
  * @param key - The localStorage key
  */
-export const removeFromLocalStorage = (key: StorageKey): void => {
+export const Reject = (key: StorageKey): void => {
   try {
     localStorage.removeItem(key);
   } catch (error) {
