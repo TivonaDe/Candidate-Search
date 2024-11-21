@@ -45,7 +45,7 @@ const CandidateSearch = () => {
       <button onClick={nextCandidate}>-</button>
     </div>
   ) : (
-    <p>No more candidates available</p>
+    <><p>Welcome to the Candidate Search</p><p>   Add Candidates and Then search to find the right one!</p></>
   );
 };
 

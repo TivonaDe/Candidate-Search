@@ -62,5 +62,10 @@ const AddCandidate = () => {
     </div>
   );
 };
+import { saveToCache } from './utils/cacheLocalStorage';
+
+const candidate = { name: 'John Doe', username: 'johndoe' };
+saveToCache('savedCandidates', [candidate]);
+
 
 export default AddCandidate;
