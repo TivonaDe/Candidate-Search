@@ -20,6 +20,7 @@ const CandidateSearch = () => {
 
     fetchCandidates();
   }, []);
+  
 
   const handleSaveCandidate = () => {
     if (candidate) {

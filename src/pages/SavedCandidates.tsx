@@ -5,6 +5,7 @@ import { getFromCache } from './utils/cacheLocalStorage';
 const SavedCandidates = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [candidates, setCandidates] = useState(getFromCache<Array<any>>('savedCandidates') || []);
+  const [acceptedCandidates, setAcceptedCandidates] = useState<any[]>([]); 
 
   useEffect(() => {
     const saved = localStorage.getItem('savedCandidates');
@@ -21,6 +22,10 @@ const SavedCandidates = () => {
   if (candidates.length === 0) {
     return <p>No saved candidates yet!</p>;
   }
+  const handleAccept = () => {
+    setAcceptedCandidates([...acceptedCandidates, candidates[currentIndex]]);
+    nextCandidate();
+  };
   
   const nextCandidate = () => {
     if (currentIndex < candidates.length - 1) {
@@ -32,6 +37,15 @@ const SavedCandidates = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
+  };
+  const exportCandidates = () => {
+    const blob = new Blob([JSON.stringify(acceptedCandidates, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'accepted_candidates.json';
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -60,6 +74,7 @@ const SavedCandidates = () => {
             <button onClick={prevCandidate} disabled={currentIndex === 0}>
               Previous
             </button>
+            <button onClick={handleAccept}>Accept</button>
             <button
               onClick={nextCandidate}
               disabled={currentIndex === candidates.length - 1}
@@ -75,7 +90,7 @@ const SavedCandidates = () => {
         <p>No candidates saved yet!</p>
       )}
       {currentIndex === candidates.length - 1 && candidates.length > 0 && (
-        <p>No more candidates to display.</p>
+        <><p>No more candidates to display.</p><button onClick={exportCandidates}>Export Accepted Candidates</button></>
       )}
     </section>
   );
